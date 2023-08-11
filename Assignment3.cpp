@@ -5,7 +5,16 @@
 #include<vector>
 using namespace std;
 
-string Words[8] = {"paris", "london", "madrid", "amsterdam", "lisbon", "brussel", "berlin", "budapest"};
+string Words[10] = { "Hello",
+        "world",
+        "apple",
+        "Banana",
+        "cat",
+        "dog",
+        "sun",
+        "moon",
+        "happy",
+        "smile"};
 string Random_word ;
 int guesses = 6;
 int warnings = 3;
@@ -15,6 +24,7 @@ char entered_char;
 // Function prototypes
 void Randoming_word();
 void initialising();
+void introduction();
 void printings();
 bool is_letter(char b);
 bool is_vowel(char b);
@@ -31,22 +41,19 @@ int main()
 
     Randoming_word();
     initialising();
-    cout<<"Secret word looks like:\t"<<current_word;
-    cout<<"\n\t.Try to guess the word character by character\nLets go";
-    cout<<"\n\t.!!!Remember you have 6 guesses and 3 warnings incase guesses finished before you filled
-        a secret word it will be your loss":
+    introduction();
 
-    for (int i = 0;; i++)
-        cout<<"\n==================================================================\n";
+    for (int i =0;; i++)
     {
+        cout<<"\n==================================================================\n";
         char enter;
-        cout << "\nEnter your character:";
+        cout << "\nEnter a letter you guess is in the secret word:";
         cin >> enter;
         if (is_letter(enter))
         {
+            case_sensitive(enter);
             if (!is_used(enter))
             {
-                case_sensitive(enter);
                 if (find(entered_char))
                 {
                     printings();
@@ -55,23 +62,35 @@ int main()
                 {
                     if (is_vowel(entered_char))
                     {
+                      cout<<"\n!!!this is a vowel and not in secret word, so you're lossing two guesses";
                         guesses -= 2;
                     }
                     else
                     {
+                      cout<<"!!!This letter is not in secret word , so you're lossing a guess";
                         guesses -= 1;
                     }
                 }
             }
             else
             {
-                if (warnings == 0)
+                if (is_vowel(entered_char))
                 {
-                    guesses -= 1;
+                  cout<<"\n!!!this is a vowel and has been guessed, so you're lossing two guesses";
+                    guesses -= 2;
                 }
                 else
                 {
-                    warnings -= 1;
+                    if (warnings == 0)
+                    {
+                       cout<<"!!!This letter has been guessed , so you're lossing a guess";
+                        guesses -= 1;
+                    }
+                    else
+                    {
+                      cout<<"!!!This letter has been guessed , so you're lossing a warning";
+                        warnings -= 1;
+                    }
                 }
             }
         }
@@ -80,12 +99,12 @@ int main()
             if (warnings != 0)
             {
                 warnings-=1;
-                cout<<"\n!!!!!!You entered a non_letter symbol";
+                cout<<"\n!!!!!!You entered a non_letter symbol, you're lossing warning";
             }
             else
             {
                 guesses-=1;
-                cout<<"\n!!!!!!You entered a non_letter symbol";
+                cout<<"\n!!!!!!You entered a non_letter symbol, you're lossing a guess";
             }
             
             
@@ -189,6 +208,22 @@ bool lost()
 bool wins()
 {
     return (guesses != 0 && current_word == Random_word);
+}
+
+void introduction()
+{
+    cout<<"\n\t\t\t\t\t**************\n";
+    cout<<"\t\t\t\t\t*HANGMAN GAME*\n";
+    cout<<"\t\t\t\t\t**************\n";
+    cout<<"\n\tThe Secret word has the same length as:\t"<<current_word;
+    cout<<"\n\n\tTry to guess the word character by character\n";
+    cout<<"\n\t\t\tINSTRUCTIONS";
+    cout<<"\n\t\t\t************";
+    cout<<"\n\t1.You have 6 guesses and 3 warnings, \n\tincase guesses finished before you guessed a secret word it will be your loss";
+    cout<<"\n\n\t2.If you  inputs a vowel (a,e,i,o,u), not in secret word or already guessed you would lose 2 guesses.";
+    cout<<"\n\n\t3.If you input a consonant not in secret word or already guessed you should lose wrning if any, or a guess";
+    cout<<"\n\n\t4.Non letter symbols are not allowed if entered you would lose warning if any or a guess\n";
+    cout<<"\n\t\t\t\tGood luck!  Let start our game\n";
 }
 
 int counting_unique_characters_in_random_word(string a)
