@@ -86,6 +86,9 @@ int main()
             
             
         }
+
+        if(guesses<0)
+           guesses=0;
         
 
         if (wins())
