@@ -31,9 +31,13 @@ int main()
 
     Randoming_word();
     initialising();
-    printings();
+    cout<<"Secret word looks like:\t"<<current_word;
+    cout<<"\n\t.Try to guess the word character by character\nLets go";
+    cout<<"\n\t.!!!Remember you have 6 guesses and 3 warnings incase guesses finished before you filled
+        a secret word it will be your loss":
 
     for (int i = 0;; i++)
+        cout<<"\n==================================================================\n";
     {
         char enter;
         cout << "\nEnter your character:";
@@ -100,7 +104,7 @@ int main()
         }
         else if (lost())
         {
-            cout << "\n\n\t***Oops you lost, guesses are over;";
+            cout << "\n\n\t***Oops you lost, guesses are over";
             break;
         }
         cout<<"\n\t\tRemaining guesses are:"<<guesses;
