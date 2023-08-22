@@ -8,7 +8,7 @@ using namespace std;
 string Words[10] = { "Hello",
         "world",
         "apple",
-        "Banana",
+        "banana",
         "cat",
         "dog",
         "sun",
