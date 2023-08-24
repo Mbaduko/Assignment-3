@@ -5,7 +5,7 @@
 #include<vector>
 using namespace std;
 
-string Words[10] = { "Hello",
+string Words[10] = { "hello",
         "world",
         "apple",
         "banana",
@@ -231,16 +231,20 @@ int counting_unique_characters_in_random_word(string a)
     vector<char> count={'.'};
     for (char c:a)
     {
+        bool same=false;
         for (int i = 0; i < count.size(); i++)
         {
-            if (c!=count[i])
+            if (c==count[i])
             {
-                count.push_back(c);
+               same=true;
                 break;
             }
             
         }
-        
+        if(!same)
+        {
+         count.push_back(c);
+        }
     }
     return (count.size()-1); 
 }
